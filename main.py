@@ -1,6 +1,7 @@
 import argparse
 import os
 from pathlib import Path
+import threading
 import time
 
 from pydub import AudioSegment
@@ -20,6 +21,11 @@ group.add_argument("--log_file", type=argparse.FileType('r'), help=f"Path to log
 args = ap.parse_args()
 
 
+def worker():
+    """Thread worker function to play sound."""
+    play(song)
+
+
 def listen_loop(file, trigger_text, case_insensitive_enabled):
     # start listening from end of log file
     file.seek(0, os.SEEK_END)  # offset=0, whence="from the end"
@@ -33,7 +39,8 @@ def listen_loop(file, trigger_text, case_insensitive_enabled):
 
             if trigger_text in line:
                 print("Match!: ", line)
-                play(song)
+                th = threading.Thread(target=worker)
+                th.start()
         else:
             time.sleep(0.5)
 
