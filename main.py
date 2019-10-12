@@ -6,6 +6,7 @@ import time
 
 from pydub import AudioSegment
 from pydub.playback import play
+import wx
 
 
 SOUND_FILE = "zapsplat_emergency_alarm_siren_011_26617.mp3"
@@ -43,6 +44,24 @@ def listen_loop(file, trigger_text, case_insensitive_enabled):
                 th.start()
         else:
             time.sleep(0.5)
+
+
+class MyFrame(wx.Frame):
+    def __init__(self):
+        super().__init__(parent=None, title='eqsoundtrigger')
+
+        panel = wx.Panel(self)
+
+        self.text_ctrl = wx.TextCtrl(panel, pos=(5, 5))
+        my_btn = wx.Button(panel, label='Press Me', pos=(5, 55))
+
+        self.Show()
+
+
+if __name__ == '__main__':
+    app = wx.App()
+    frame = MyFrame()
+    app.MainLoop()
 
 
 listen_loop_args = dict(trigger_text=args.text, case_insensitive_enabled=args.i)
