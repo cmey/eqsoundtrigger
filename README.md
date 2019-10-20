@@ -4,6 +4,11 @@ Trigger a sound when a text matches in Everquest.
 
 ## How to use
 
+Example:
+```
+python main.py --char_name Novina --text "Ruen auctions"
+```
+
 ```
 usage: main.py [-h] [--text TEXT] [-i]
                (--char_name CHAR_NAME | --log_file LOG_FILE)
@@ -21,13 +26,14 @@ optional arguments:
                         Support/EverQuest/PlayerLogseqlog_Novina_loginse.txt
 ```
 
-Example:
-```
-python main.py --char_name Novina --text "some text that you want to trigger a sound!"
-```
-
 ## Installation
 
 Set `Log=TRUE` in your installation's eqclient.ini (typically `~/Library/Application Support/EverQuest/eqclient.ini`).
 
-
+Install required libraries in this project's environment:
+```
+python3 -m venv env
+source env/bin/activate
+pip install --upgrade pip
+pip install -r requirements.txt
+```
